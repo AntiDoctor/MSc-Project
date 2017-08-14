@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+import rospy, time
+#from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from geometry_msgs.msg import WrenchStamped, Wrench, Vector3
+
+def callback(msg):
+	rospy.loginfo("Torque Force sensor output!")
+	rospy.loginfo("Force Components: [%f, %f, %f]"%(msg.wrench.force.x, msg.wrench.force.y, msg.wrench.force.z))
+	
+
+def listener():
+
+    rospy.init_node('listener', anonymous=True)
+
+    rospy.Subscriber("/wrist_ft", WrenchStamped, callback)
+
+    # spin() simply keeps python from exiting until this node is stopped
+    rospy.spin()
+
+if __name__ == '__main__':
+	listener()
+
+
